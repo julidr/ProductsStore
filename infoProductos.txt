@@ -1,0 +1,2 @@
+co.edu.usa.adf.ProductsStore.Producto
+C://Users//Usuario//workspace//ProductsStore//datos//Productos.txt
