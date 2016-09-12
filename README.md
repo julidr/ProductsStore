@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ProductsStore
 ==============
 
@@ -50,3 +51,7 @@ Using Vaadin pre-releases
 
 If Vaadin pre-releases are not enabled by default, use the Maven parameter
 "-P vaadin-prerelease" or change the activation default value of the profile in pom.xml .
+=======
+# ProductsStore
+Proyecto desarrollado con Vaadin para la Clase de FrameWorks
+>>>>>>> 8c31ff6dbbf1e452cd5e73b2962ad76fcb74b02a
