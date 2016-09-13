@@ -9,7 +9,7 @@ import co.edu.usa.adf.OverClass.Tomate;
 public class Compra {
 	
 	@Campo(ancho=20) private Date fecha;
-	@Campo(ancho=50) private Producto producto;
+	@Campo(ancho=150) private Producto producto;
 	@Campo(ancho=10) private int cantidadComprada;
 	@Campo(ancho=15) private float totalDeLaCompra;
 	

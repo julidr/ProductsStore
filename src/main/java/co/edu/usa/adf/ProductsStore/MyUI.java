@@ -3,6 +3,7 @@ package co.edu.usa.adf.ProductsStore;
 import java.awt.image.ImageFilter;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,6 +55,7 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Reindeer;
 
 /**
@@ -67,12 +69,14 @@ import com.vaadin.ui.themes.Reindeer;
  */
 @Theme("mytheme")
 @StyleSheet({ "http://fonts.googleapis.com/css?family=Sigmar+One",
-		"http://fonts.googleapis.com/css?family=Bree+Serif" })
+		"http://fonts.googleapis.com/css?family=Bree+Serif"})
 public class MyUI extends UI {
 
 	ControladorDeTrashStore ctrlUI = new ControladorDeTrashStore();
 	public Table tablaDeProductos = new Table();
-	final VerticalLayout layoutOne = new VerticalLayout();
+	final VerticalLayout divPrincipal = new VerticalLayout();
+	HorizontalLayout divDeMenu= new HorizontalLayout();
+	HorizontalLayout divDeBotones= new HorizontalLayout();
 	final FormLayout form=new FormLayout();
 	final TextField filtrador= new TextField();
 	ArrayList<Integer> valoresSeleccionados= new ArrayList<>();
@@ -91,39 +95,83 @@ public class MyUI extends UI {
 		ctrlUI.convertirListaProductos();
 		tablaDeProductos.addStyleName("tabla");
 
-		Label titulo = new Label("Bienvenido a la TrashStore");
-		titulo.addStyleName("titulo");
+		Resource imagen1= new ThemeResource("Imagenes//Titulo.png");
+		Image titulo= new Image(null, imagen1);
+		
+		Resource imagen2= new ThemeResource("Imagenes//barraSeparadora.png");
+		Image separador= new Image(null, imagen2);
+		separador.addStyleName("barraSeparadora");
+		
+		Image separador2= new Image(null, imagen2);
+		separador.addStyleName("barraSeparadora");
+		
 		filtrador.setInputPrompt("Buscar Producto");
+		
+		HorizontalLayout divLupa= new HorizontalLayout();
+		Label lupa = new Label();
+		lupa.setIcon(new ThemeResource("Imagenes//lupa.png"));
+		divLupa.addStyleName("lupa");
+		divLupa.addComponent(lupa);
+		
 		Button botonAgregarProducto = new Button("Agregar Producto Nuevo!");
+		botonAgregarProducto.setIcon(new ThemeResource("Imagenes//anadir.png"));
 		botonAgregarProducto.addClickListener(e -> {
 			agregarProducto();
 		});
+		
 		Button botonImprimirCompras = new Button("Imprimir Compras");
+		botonImprimirCompras.setIcon(new ThemeResource("Imagenes//impresora.png"));
 		botonImprimirCompras.addClickListener(e -> {
 			System.out.println("Imprimiendo");
 			imprimirCompras();
 		});
-		layoutOne.addComponents(titulo, filtrador,botonAgregarProducto,botonImprimirCompras);
+		
+		divPrincipal.addComponents(titulo);
+		divDeMenu.setSpacing(true);
+		divDeBotones.setSpacing(true);
+		divDeBotones.addComponents(botonAgregarProducto,botonImprimirCompras);
+		divDeBotones.addStyleName("divDeBotones");
+		divDeMenu.addComponents(divLupa,filtrador, divDeBotones);
+		divDeMenu.addStyleName("divDeMenu");
+		divPrincipal.addComponents(divDeMenu, separador);
+		
 		cargarTablaDeProductos();
 		tablaDeProductos.sort(new Object[]{"Nombre"},new boolean[]{true});
-		//label y crear 2 botones
 
-		Button botonAceptar = new Button("Aceptar");
-		layoutOne.addComponents(tablaDeProductos,botonAceptar);
+		Button botonComprar = new Button("Comprar");
+		botonComprar.setIcon(new ThemeResource("Imagenes//bolsa.png"));
+		divPrincipal.addComponents(tablaDeProductos,botonComprar, separador2);
 		filtrarPorNombre();
 		
-		botonAceptar.addClickListener(e -> {
+		botonComprar.addClickListener(e -> {
 			filtrador.clear();
 			recibirSeleccion(tablaDeProductos.getValue());
 		});
 		
-		layoutOne.setComponentAlignment(tablaDeProductos, Alignment.MIDDLE_CENTER);
-		layoutOne.setMargin(true);
-		layoutOne.setSpacing(true);
+		HorizontalLayout divFondo= new HorizontalLayout();
+		divFondo.addStyleName("divFondo");
+		Resource imagen3= new ThemeResource("Imagenes//bannerFinal.png");
+		Image bannerFinal= new Image(null, imagen3);
+		bannerFinal.setHeight("100px");
+		bannerFinal.addStyleName("bannerFinal");
+		divFondo.addComponent(bannerFinal);
+		divFondo.setComponentAlignment(bannerFinal, Alignment.TOP_CENTER);
+		divFondo.setWidth("100%");
+		divFondo.setHeight("100px");
+		divFondo.setMargin(true);
+		divFondo.setSpacing(true);
+		divPrincipal.addComponent(divFondo);
+		
+		divPrincipal.setComponentAlignment(titulo, Alignment.TOP_CENTER);
+		divPrincipal.setComponentAlignment(separador, Alignment.MIDDLE_CENTER);
+		divPrincipal.setComponentAlignment(tablaDeProductos, Alignment.MIDDLE_CENTER);
+		divPrincipal.setComponentAlignment(botonComprar, Alignment.BOTTOM_RIGHT);
+		divPrincipal.setComponentAlignment(separador2, Alignment.BOTTOM_CENTER);
+		botonComprar.addStyleName("botonComprar");
+		divPrincipal.setMargin(true);
+		divPrincipal.setSpacing(true);
 
-		layoutOne.addStyleName("layoutOne");
-
-		setContent(layoutOne);
+		setContent(divPrincipal);
 	}
 	
 	public void cargarTablaDeProductos(){
@@ -206,10 +254,10 @@ public class MyUI extends UI {
 				Notification.show("Ningun producto se ha seleccionado!!",Notification.TYPE_ERROR_MESSAGE);compracomit=false;break;
 			}
 			
-			System.out.println(indiceTabla);
 			Item item=items.get(indiceTabla);
 			int cantidadDisp=(Integer)item.getItemProperty("Cantidad Disponible").getValue();
 			TextField tx=(TextField)item.getItemProperty("Cantidad a comprar").getValue();
+			producto= ctrlUI.obtenerProducto(indiceTabla);
 			if(tx.isEmpty()==true){
 				compracomit=false;
 				Notification.show("Algunos productos seleccionados no tienen cantidad a comprar", Notification.TYPE_ERROR_MESSAGE);
@@ -220,7 +268,6 @@ public class MyUI extends UI {
 				break;
 			}else{
 				compracomit=true;
-				producto= ctrlUI.obtenerProducto(indiceTabla);
 				cantidadComprada= Integer.parseInt(tx.getValue());
 				item.getItemProperty("Cantidad Disponible").setValue(cantidadDisp-Integer.parseInt(tx.getValue()));
 				System.out.println("Modified In table, new value");
@@ -243,7 +290,8 @@ public class MyUI extends UI {
 	        for (Producto produ : temp) {
 				subContent.addComponent(new Label("    Nombre: "+produ.getNombre()));
 			}
-	        subContent.addComponent(new Label("\nTotal a Pagar: "+total));
+	        DecimalFormat formatoDeSalida= new DecimalFormat("###,###.##");
+	        subContent.addComponent(new Label("\nTotal a Pagar: "+formatoDeSalida.format(total)));
 	        subContent.addComponent(a);
 	        a.addClickListener(e->{
 	        	temp.clear();
@@ -288,25 +336,26 @@ public class MyUI extends UI {
 		form.addComponent(guardar);
 		guardar.addClickListener(e -> {
 			System.out.println("Boton guardar");
-			Producto ne=new Producto();
-			try {
-				tf1.getValue();
-				Float.parseFloat(tf2.getValue());
-				Integer.parseInt(tf3.getValue());
-			} catch (Exception e2) {
-				// TODO: handle exception
-				Notification.show("Valor numerico incorrecto, o campos vacios!");
-			}
-			ne.setNombre(tf1.getValue());
-			ne.setPrecio(Float.parseFloat(tf2.getValue()));
-			ne.setCantidadDisponible(Integer.parseInt(tf3.getValue()));
-			ne.setImagen("Imagenes//"+reciever.getNombreImagen());
-			System.out.println(ne);
-			ctrlUI.getListaDeProductos().add(ne);
-			agregarColumnas(ne);
-			System.out.println("Lista");
-			for (Producto com : ctrlUI.getListaDeProductos()) {
-				System.out.println(com.toString());
+			if(tf1.getValue().equalsIgnoreCase("") || tf2.getValue().equalsIgnoreCase("0")
+					|| tf3.getValue().equalsIgnoreCase("0") || reciever.getNombreImagen().equalsIgnoreCase("")){
+				Notification.show("Ha dejado un campo vacio", Notification.TYPE_ERROR_MESSAGE);
+			}else{
+				Producto ne=new Producto();
+				try {
+					tf1.getValue();
+					Float.parseFloat(tf2.getValue());
+					Integer.parseInt(tf3.getValue());
+				} catch (Exception e2) {
+					// TODO: handle exception
+					Notification.show("Valor numerico incorrecto, o campos vacios!");
+				}
+				ne.setNombre(tf1.getValue());
+				ne.setPrecio(Float.parseFloat(tf2.getValue()));
+				ne.setCantidadDisponible(Integer.parseInt(tf3.getValue()));
+				ne.setImagen("Imagenes//"+reciever.getNombreImagen());
+				System.out.println(ne);
+				ctrlUI.getListaDeProductos().add(ne);
+				agregarColumnas(ne);
 			}
 		});
 		addWindow(nuevoProduct);
@@ -316,7 +365,6 @@ public class MyUI extends UI {
 		vt.setMargin(true);
 		vt.setSpacing(true);
 		nuevoProduct.setContent(vt);
-		//Button acction
 	}
 	
 	public void agregarColumnas(Producto product){

@@ -33,7 +33,6 @@
 
 @mixin mytheme {
   @include valo;
-
   // Insert your own theme rules here
   .titulo {
     font-size: 50px;
@@ -43,10 +42,32 @@
     font-family: Sigmar One;
 
   }
-  .layoutOne{
-  	  
-  }
   .tabla{
   	text-align: center;
+  }
+  img.v-icon{
+  	height: 25px;
+  }
+  .divDeBotones{
+  	margin-left: 550px;
+  }
+  .divDeMenu{
+  	margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .lupa{
+  	margin-top: 5px;
+  }
+  .botonComprar{
+  	margin-right: 145px;
+  }
+  .barraSeparadora{
+  	margin-top: -35px;
+  }
+  .divFondo{
+  	background-color: #6B6B6B;
+  }
+  .bannerFinal{
+     margin-top: -28px;
   }
 }

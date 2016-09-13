@@ -1,4 +1,9 @@
-2016/15/11 09:15:08 Producto [nombre=Overwatch, precio=160000.0, cantidadDisponible=380, imagen=Imagenes//overwatchps4.png]380       6.88E7         
-2016/15/11 09:15:08 Producto [nombre=No Man's Sky, precio=160000.0, cantidadDisponible=10050, imagen=Imagenes//NomansSky.png]50        8000000.0      
-2016/14/11 09:14:17 Producto [nombre=5 valido para cualquier parcial, precio=150000.0, cantidadDisponible=258, imagen=Imagenes//5valido.png]258       3.87E7         
-2016/15/11 09:15:08 Producto [nombre=Pokemon Omega Ruby, precio=115000.0, cantidadDisponible=15, imagen=Imagenes//PokemonOmega.png]5         6.9375E7       
+2016/54/12 11:54:24 Producto [nombre=Nintendo 3DS XL, precio=709900.0, cantidadDisponible=50, imagen=Imagenes//Nintendo3DS.png]                                           50        9.3098E7       
+2016/54/12 11:54:58 Producto [nombre=Premio Oscar de Leonardo Di Caprio, precio=200.0, cantidadDisponible=1, imagen=Imagenes//OscarDiCaprio.png]                          1         200.0          
+2016/54/12 11:54:58 Producto [nombre=Tarjeta 50 dolares de la Eshop, precio=157000.0, cantidadDisponible=73, imagen=Imagenes//50DolaresEshop.png]                         5         785200.0       
+2016/54/12 11:54:32 Producto [nombre=Titulo de Propiedad de Google, precio=500.0, cantidadDisponible=1, imagen=Imagenes//TituloGoogle.png]                                1         500.0          
+2016/55/12 11:55:44 Producto [nombre=Tarjeta 50 dolares de la Eshop, precio=157000.0, cantidadDisponible=73, imagen=Imagenes//50DolaresEshop.png]                         4         628000.0       
+2016/54/12 11:54:24 Producto [nombre=5 valido para cualquier parcial, precio=150000.0, cantidadDisponible=258, imagen=Imagenes//5valido.png]                              258       3.87E7         
+2016/54/12 11:54:24 Producto [nombre=8 Horas de Sueño, precio=300500.0, cantidadDisponible=62, imagen=Imagenes//8Horas.png]                                               62        5.7331E7       
+2016/54/12 11:54:24 Producto [nombre=Cookie Cat, precio=3200.0, cantidadDisponible=85, imagen=Imagenes//CookieCat.png]                                                    85        5.7603E7       
+2016/54/12 11:54:37 Producto [nombre=Nuka Cola, precio=4500.0, cantidadDisponible=150, imagen=Imagenes//NukaCola.png]                                                     150       675000.0       
